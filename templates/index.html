@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="https://www.stenka24.ru/wp-content/uploads/2019/12/tinkoff-logo.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI-ассистент банка Тинькофф😎</title>
@@ -75,6 +76,7 @@
         const chatBox = document.getElementById('chat-box');
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
+        let responsePending = false; // Variable to track response status
 
         // Event listener for sending messages
         sendButton.addEventListener('click', () => {
@@ -84,6 +86,9 @@
                 alert('Please enter a message');
                 return;
             }
+
+            // Disable the button while waiting for a response
+            sendButton.disabled = true;
 
             // Append the user's message immediately
             appendMessage(`Вы: ${userMessage}`);
@@ -101,6 +106,8 @@
             .then(data => {
                 const botMessage = `Ассистент: ${data.message}`;
                 appendMessage(botMessage);
+                // Enable the button after receiving a response
+                sendButton.disabled = false;
             });
         });
 
@@ -110,6 +117,7 @@
             messageElement.textContent = message;
             chatBox.appendChild(messageElement);
         }
+
     </script>
 </body>
 </html>
